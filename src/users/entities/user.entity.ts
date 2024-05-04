@@ -14,6 +14,12 @@ export class User {
   @Column()
   name: string;
 
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
   @Column({ default: 'user' })
   role: string;
 

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { generateSelect } from 'src/utils/generateSelect';
 import { Repository } from 'typeorm';
@@ -16,6 +20,10 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
+    const ready = await this.#isAlready(createUserDto.email);
+    if (ready) {
+      throw new ConflictException('Users is already exists');
+    }
     const newUser = this.userRepo.create(createUserDto);
     return await this.userRepo.save(newUser);
   }
@@ -37,6 +45,17 @@ export class UsersService {
     return user;
   }
 
+  async findByName(username: string, fields?: string) {
+    const user = await this.userRepo.findOne({
+      where: { name: username },
+      select: generateSelect(fields, fieldsResponse),
+    });
+    if (!user) {
+      throw new NotFoundException(`User #${username} not found`);
+    }
+    return user;
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto, fields: string) {
     const updated = await this.userRepo.update({ id }, updateUserDto);
     if (updated.affected === 0) {
@@ -51,5 +70,9 @@ export class UsersService {
       throw new NotFoundException(`Failed remove user #${id}`);
     }
     return { message: `Successfully removes a user ${id}` };
+  }
+
+  async #isAlready(email: string) {
+    return await this.userRepo.existsBy({ email });
   }
 }
