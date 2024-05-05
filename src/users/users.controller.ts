@@ -31,13 +31,13 @@ export class UsersController {
     return this.usersService.findOne(+id, fields);
   }
 
-  @Get('me/:username')
-  findOneByEmail(
-    @Param('username') username: string,
-    @Query('fields') fields: string,
-  ) {
-    return this.usersService.findByName(username, fields);
-  }
+  // @Get('me/:email')
+  // findOneByEmail(
+  //   @Param('username') username: string,
+  //   @Query('fields') fields: string,
+  // ) {
+  //   return this.usersService.findByName(username, fields);
+  // }
 
   @Patch(':id')
   update(

@@ -19,6 +19,7 @@ export class UsersService {
     private readonly userRepo: Repository<User>,
   ) {}
 
+  /** create a user */
   async create(createUserDto: CreateUserDto) {
     const ready = await this.#isAlready(createUserDto.email);
     if (ready) {
@@ -28,12 +29,14 @@ export class UsersService {
     return await this.userRepo.save(newUser);
   }
 
+  /** find all users */
   async findAll(fields: string) {
     return this.userRepo.find({
       select: generateSelect(fields, fieldsResponse),
     });
   }
 
+  /** find by id */
   async findOne(id: number, fields: string) {
     const user = await this.userRepo.findOne({
       where: { id },
@@ -45,17 +48,18 @@ export class UsersService {
     return user;
   }
 
-  async findByName(username: string, fields?: string) {
+  /** find user by email for auth */
+  async findByEmail(email: string) {
     const user = await this.userRepo.findOne({
-      where: { name: username },
-      select: generateSelect(fields, fieldsResponse),
+      where: { email },
     });
     if (!user) {
-      throw new NotFoundException(`User #${username} not found`);
+      throw new NotFoundException(`User #${email} not found`);
     }
     return user;
   }
 
+  /** update user by id */
   async update(id: number, updateUserDto: UpdateUserDto, fields: string) {
     const updated = await this.userRepo.update({ id }, updateUserDto);
     if (updated.affected === 0) {
@@ -64,6 +68,7 @@ export class UsersService {
     return await this.findOne(id, fields);
   }
 
+  /** remove a user by id */
   async remove(id: number) {
     const removed = await this.userRepo.delete({ id });
     if (removed.affected === 0) {
