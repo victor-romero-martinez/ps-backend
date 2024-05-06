@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { generateSelect } from 'src/utils/generateSelect';
 import { Repository } from 'typeorm';
@@ -17,6 +18,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
   /** create a user */
@@ -65,7 +67,17 @@ export class UsersService {
     if (updated.affected === 0) {
       throw new NotFoundException(`Failed update user #${id}`);
     }
-    return await this.findOne(id, fields);
+    const user = await this.findOne(id, fields);
+    const payload = {
+      sub: user.id,
+      username: user.name,
+      email: user.email,
+      role: user.role,
+    };
+    return {
+      access_token: this.jwtService.sign(payload),
+      ...user,
+    };
   }
 
   /** remove a user by id */
