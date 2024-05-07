@@ -3,6 +3,7 @@
 /node_modules
 /build
 /data
+/http/*.local.http
 
 # Logs
 logs

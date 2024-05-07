@@ -21,4 +21,4 @@ Content-Type: application/json
 
 # get profile
 GET http://localhost:4000/auth/profile HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoiZ29oIiwiZW1haWwiOiJnb2hAdWtkZS51eSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE1MTEzNjA0LCJleHAiOjE3MTUyMDAwMDR9.He5WZDSzhktf2tSh9EVS5PjAjPu5GOtx-iPGCYnw24Y
+Authorization: Bearer your-toke-here!
