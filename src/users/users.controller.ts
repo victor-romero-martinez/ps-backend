@@ -18,13 +18,20 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  findAll(@Query('fields') fields: string) {
-    return this.usersService.findAll(fields);
+  findAll(
+    @Query('fields') fields: string,
+    @Query('includes') includes: string,
+  ) {
+    return this.usersService.findAll(fields, includes);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Query('fields') fields: string) {
-    return this.usersService.findOne(+id, fields);
+  findOne(
+    @Param('id') id: string,
+    @Query('fields') fields: string,
+    @Query('includes') includes: string,
+  ) {
+    return this.usersService.findOne(+id, fields, includes);
   }
 
   @UseGuards(JwtAuthGuard)

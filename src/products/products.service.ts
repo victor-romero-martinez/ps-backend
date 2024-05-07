@@ -6,7 +6,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 
-const fieldsResponse = [
+const placeholder = [
   'id',
   'code',
   'barcode',
@@ -32,14 +32,14 @@ export class ProductsService {
 
   async findAll(fields?: string) {
     return await this.productRepo.find({
-      select: generateSelect(fields, fieldsResponse),
+      select: generateSelect({ placeholder, fields }),
     });
   }
 
   async findOne(id: number, fields?: string) {
     const product = await this.productRepo.findOne({
       where: { id },
-      select: generateSelect(fields, fieldsResponse),
+      select: generateSelect({ placeholder, fields }),
     });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);

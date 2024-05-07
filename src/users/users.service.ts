@@ -11,7 +11,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
-const fieldsResponse = ['id', 'name', 'role', 'updated_at', 'created_at'];
+const placeholder = ['id', 'name', 'email', 'role', 'updated_at', 'created_at'];
 
 @Injectable()
 export class UsersService {
@@ -32,17 +32,19 @@ export class UsersService {
   }
 
   /** find all users */
-  async findAll(fields: string) {
+  async findAll(fields?: string, includes?: string) {
     return this.userRepo.find({
-      select: generateSelect(fields, fieldsResponse),
+      relations: { products: includes ? true : false },
+      select: generateSelect({ placeholder, fields, includes }),
     });
   }
 
   /** find by id */
-  async findOne(id: number, fields: string) {
+  async findOne(id: number, fields?: string, includes?: string) {
     const user = await this.userRepo.findOne({
       where: { id },
-      select: generateSelect(fields, fieldsResponse),
+      relations: { products: includes ? true : false },
+      select: generateSelect({ placeholder, fields, includes }),
     });
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
