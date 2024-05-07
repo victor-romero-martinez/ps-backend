@@ -3,8 +3,8 @@ POST http://localhost:4000/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "mavil",
-  "email": "mavil@juca.gi",
+  "name": "goh",
+  "email": "goh@ukde.uy",
   "password": "misuperpass"
 }
 ###
@@ -14,11 +14,11 @@ POST http://localhost:4000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "kenu@wos.kw",
+  "email": "goh@ukde.uy",
   "password": "misuperpass"
 }
 ###
 
 # get profile
 GET http://localhost:4000/auth/profile HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiZGF2aWQiLCJlbWFpbCI6ImRhdmlkQG1vLm1uIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTQ5Mjg0NjQsImV4cCI6MTcxNTAxNDg2NH0.HZ-l1DsJPz_cf-dHvtsLv_EUiTEG3ADQa6zig26mbtc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoiZ29oIiwiZW1haWwiOiJnb2hAdWtkZS51eSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE1MTEzNjA0LCJleHAiOjE3MTUyMDAwMDR9.He5WZDSzhktf2tSh9EVS5PjAjPu5GOtx-iPGCYnw24Y
