@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -34,21 +35,25 @@ export class ProductsController {
     return this.productsService.findOne(+id, fields);
   }
 
-  // [TODO] proceder con id del autor desde el tokeb
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
+    @Request() req,
     @Body() updateProductDto: UpdateProductDto,
     @Query('fields') fields: string,
   ) {
-    return this.productsService.update(+id, updateProductDto, fields);
+    return this.productsService.update(
+      +id,
+      req.user.sub,
+      updateProductDto,
+      fields,
+    );
   }
 
-  // [TODO] proceder con id del autor desde el tokeb
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+  remove(@Param('id') id: string, @Request() req) {
+    return this.productsService.remove(+id, req.user.sub);
   }
 }

@@ -49,20 +49,29 @@ export class ProductsService {
 
   async update(
     id: number,
+    sub: number,
     updateProductDto: UpdateProductDto,
     fields?: string,
   ) {
-    const product = await this.productRepo.update({ id }, updateProductDto);
+    const product = await this.productRepo.update(
+      { id, userId: sub },
+      updateProductDto,
+    );
     if (product.affected === 0) {
-      throw new NotFoundException(`Failed updating product #${id}`);
+      throw new NotFoundException(
+        `You don't have permission to access or not found this resource`,
+      );
     }
     return await this.findOne(id, fields);
   }
 
-  async remove(id: number) {
-    const product = await this.productRepo.delete({ id });
+  async remove(id: number, sub: number) {
+    console.log('sub: ', sub);
+    const product = await this.productRepo.delete({ id, userId: sub });
     if (product.affected === 0) {
-      throw new NotFoundException(`Failed deleting product #${id}`);
+      throw new NotFoundException(
+        `You don't have permission to access or not found this resource`,
+      );
     }
     return { message: `ok` };
   }
