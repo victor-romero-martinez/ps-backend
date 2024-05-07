@@ -66,7 +66,6 @@ export class ProductsService {
   }
 
   async remove(id: number, sub: number) {
-    console.log('sub: ', sub);
     const product = await this.productRepo.delete({ id, userId: sub });
     if (product.affected === 0) {
       throw new NotFoundException(
