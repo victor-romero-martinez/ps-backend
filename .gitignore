@@ -4,6 +4,7 @@
 /build
 /data
 /http/*.local.http
+/http/*.prod.http
 
 # Logs
 logs
