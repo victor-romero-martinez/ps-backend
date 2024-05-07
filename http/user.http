@@ -1,5 +1,5 @@
 # get all user
-GET http://localhost:4000/users?fields=id,email,name,role HTTP/1.1
+GET http://localhost:4000/users?limit=10&offset=0&fields=id,email,name,role HTTP/1.1
 ###
 
 # find by id

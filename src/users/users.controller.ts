@@ -18,11 +18,22 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  findAll(
+  async findAll(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
     @Query('fields') fields: string,
     @Query('includes') includes: string,
   ) {
-    return this.usersService.findAll(fields, includes);
+    const take = limit ? +limit : 20;
+    const skip = offset ? +offset : 0;
+    const result = await this.usersService.findAll(
+      typeof take !== 'number' ? 20 : take,
+      typeof skip !== 'number' ? 0 : skip,
+      fields,
+      includes,
+    );
+
+    return { ...result, limit: result.users.length, offset: skip };
   }
 
   @Get(':id')

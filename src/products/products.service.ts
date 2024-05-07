@@ -30,10 +30,13 @@ export class ProductsService {
     return await this.productRepo.save(product);
   }
 
-  async findAll(fields?: string) {
-    return await this.productRepo.find({
+  async findAll(take: number, skip: number, fields?: string) {
+    const [product, total] = await this.productRepo.findAndCount({
+      take,
+      skip,
       select: generateSelect({ placeholder, fields }),
     });
+    return { product, total };
   }
 
   async findOne(id: number, fields?: string) {

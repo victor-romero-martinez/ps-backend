@@ -32,11 +32,20 @@ export class UsersService {
   }
 
   /** find all users */
-  async findAll(fields?: string, includes?: string) {
-    return this.userRepo.find({
+  async findAll(
+    take: number,
+    skip: number,
+    fields?: string,
+    includes?: string,
+  ) {
+    const [users, total] = await this.userRepo.findAndCount({
+      take,
+      skip,
       relations: { products: includes ? true : false },
       select: generateSelect({ placeholder, fields, includes }),
     });
+
+    return { users, total };
   }
 
   /** find by id */

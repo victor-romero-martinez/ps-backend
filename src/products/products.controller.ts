@@ -26,8 +26,19 @@ export class ProductsController {
   }
 
   @Get()
-  findAll(@Query('fields') fields: string) {
-    return this.productsService.findAll(fields);
+  async findAll(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
+    @Query('fields') fields: string,
+  ) {
+    const take = limit ? +limit : 20;
+    const skip = offset ? +offset : 0;
+    const res = await this.productsService.findAll(
+      typeof take !== 'number' ? 20 : take,
+      typeof skip !== 'number' ? 0 : skip,
+      fields,
+    );
+    return { ...res, limit: res.product.length, offset: skip };
   }
 
   @Get(':id')
