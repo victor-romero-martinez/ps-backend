@@ -18,6 +18,7 @@ import { UsersModule } from './users/users.module';
       password: CONSTANTS.db.password,
       database: CONSTANTS.db.database,
       synchronize: CONSTANTS.db.sync,
+      ssl: CONSTANTS.db.ssl,
       autoLoadEntities: true,
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
