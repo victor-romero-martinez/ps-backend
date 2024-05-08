@@ -2,13 +2,17 @@ import {
   IsEmail,
   IsEmpty,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsStrongPassword,
+  IsUrl,
+  MinLength,
 } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
+  @MinLength(3)
   name: string;
 
   @IsNotEmpty()
@@ -24,6 +28,10 @@ export class CreateUserDto {
     minUppercase: 0,
   })
   password: string;
+
+  @IsOptional()
+  @IsUrl()
+  avatar: string;
 
   @IsEmpty()
   role: string;
