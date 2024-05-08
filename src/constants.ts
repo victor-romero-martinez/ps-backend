@@ -14,5 +14,6 @@ export const CONSTANTS = {
     password: process.env.USER_PASSWORD,
     database: process.env.DATABASE,
     sync: !!process.env.SYNCHRONIZE,
+    ssl: !!process.env.SSL,
   },
 };
