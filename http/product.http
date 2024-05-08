@@ -9,7 +9,7 @@ GET http://localhost:4000/products/1?fields=id,code,barcode,product_name,price,d
 # create a product
 POST http://localhost:4000/products HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiZ29oIiwiZW1haWwiOiJnb2hAdWtkZS51eSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE1MTIyOTAxLCJleHAiOjE3MTUyMDkzMDF9.8i7kQwnA7fXDSscqZ2ly3-oU4Shqh3e4Oi_2E3moRso
+Authorization: Bearer your-token-here!
 
 {
   "code": 1,
@@ -25,7 +25,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuY
 # update a product
 PATCH http://localhost:4000/products/4?fields=id,code,barcode,product_name,price,desc,thumbnails HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer your-toke-here!
+Authorization: Bearer your-token-here!
 
 {
   "desc": "update successfilly final yes"
@@ -34,4 +34,4 @@ Authorization: Bearer your-toke-here!
 
 # remove a product
 DELETE http://localhost:4000/products/4 HTTP/1.1
-Authorization: Bearer your-toke-here!
+Authorization: Bearer your-token-here!
