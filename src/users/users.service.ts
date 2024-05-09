@@ -6,7 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bc from 'bcrypt';
-import { CONSTANTS } from 'src/constants';
+import { ROUNDS } from 'src/constants';
 import { generateSelect } from 'src/utils/generateSelect';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -29,7 +29,7 @@ export class UsersService {
     if (ready) {
       throw new ConflictException('Users is already exists');
     }
-    const hash = await bc.hash(createUserDto.password, CONSTANTS.bcrypt.rounds);
+    const hash = await bc.hash(createUserDto.password, +ROUNDS);
     const newDto = { ...createUserDto, password: hash };
     const newUser = this.userRepo.create(newDto);
     return await this.userRepo.save(newUser);

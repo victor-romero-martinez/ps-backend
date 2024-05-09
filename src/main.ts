@@ -1,9 +1,9 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import 'dotenv/config';
 import { AppModule } from './app.module';
+import { PORT } from './constants';
 
-const port = process.env.PORT ?? 3000;
+const port = PORT ?? 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,4 +12,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-console.log(`App listening on http://localhost:${port}`);

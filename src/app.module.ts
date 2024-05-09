@@ -4,7 +4,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { CONSTANTS } from './constants';
+import {
+  DATABASE,
+  HOST,
+  PORT_DB,
+  SSL,
+  SYNCHRONIZE,
+  USER_NAME,
+  USER_PASSWORD,
+} from './constants';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 
@@ -12,13 +20,13 @@ import { UsersModule } from './users/users.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: CONSTANTS.db.host,
-      port: CONSTANTS.db.port,
-      username: CONSTANTS.db.user,
-      password: CONSTANTS.db.password,
-      database: CONSTANTS.db.database,
-      synchronize: CONSTANTS.db.sync,
-      ssl: CONSTANTS.db.ssl,
+      host: HOST,
+      port: +PORT_DB,
+      username: USER_NAME,
+      password: USER_PASSWORD,
+      database: DATABASE,
+      synchronize: !!SYNCHRONIZE,
+      ssl: !!SSL,
       autoLoadEntities: true,
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
